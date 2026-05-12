@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+:root {
+  /* ── Brand ── */
+  --primary: #0047AB;
+  --primary-dark: #003087;
+  --primary-light: #4B89D4;
+  --primary-bg: #EBF1FB;
+
+  /* ── Accent – Gold for Dubai luxury ── */
+  --accent: #C9A227;
+  --accent-light: #E5C158;
+  --accent-bg: #FDF8EC;
+
+  /* ── Backgrounds ── */
+  --background: #ffffff;
+  --surface: #F4F7FF;
+  --surface-alt: #EEF2FF;
+  --dark-bg: #0A1628;
+  --dark-surface: #111D35;
+
+  /* ── Text ── */
+  --foreground: #0A1628;
+  --text-secondary: #374151;
+  --text-muted: #6B7280;
+  --text-light: #F9FAFB;
+
+  /* ── UI ── */
+  --border: #E5E7EB;
+  --border-light: #F3F4F6;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-light: var(--primary-light);
+  --color-primary-bg: var(--primary-bg);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-accent-bg: var(--accent-bg);
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
+  --color-dark-bg: var(--dark-bg);
+  --color-dark-surface: var(--dark-surface);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-light: var(--text-light);
+  --color-border: var(--border);
+  --color-border-light: var(--border-light);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
