@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import BeverageFullscreenImage from "@/components/BeverageFullscreenImage";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -289,17 +290,11 @@ export default function ProductCategories() {
                   </span>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                     {beverageGallery.map((src, gi) => (
-                      <motion.div
-                        key={src}
-                        variants={itemVariants}
-                        className="relative aspect-square rounded-xl overflow-hidden bg-white ring-1 ring-gray-200"
-                      >
-                        <Image
+                      <motion.div key={src} variants={itemVariants}>
+                        <BeverageFullscreenImage
                           src={src}
-                          fill
                           alt={`Beverage product ${gi + 1}`}
-                          sizes="(max-width:640px) 40vw,(max-width:1024px) 12vw, 180px"
-                          className="object-contain"
+                          thumbnailSizes="(max-width:640px) 40vw,(max-width:1024px) 12vw, 180px"
                         />
                       </motion.div>
                     ))}

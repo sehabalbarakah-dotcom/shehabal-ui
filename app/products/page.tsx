@@ -14,6 +14,7 @@ import {
   Package,
 } from "lucide-react";
 import PageHero from "@/components/PageHero";
+import BeverageFullscreenImage from "@/components/BeverageFullscreenImage";
 import {
   FadeUp,
   SlideInLeft,
@@ -360,18 +361,11 @@ export default function ProductsPage() {
                                     ? file
                                     : `/beverages/${file}`;
                                 return (
-                                  <div
+                                  <BeverageFullscreenImage
                                     key={file}
-                                    className="relative aspect-square rounded-xl overflow-hidden bg-white ring-1 ring-gray-200"
-                                  >
-                                    <Image
-                                      src={src}
-                                      alt={`${sub.title}: ${productLabel}`}
-                                      fill
-                                      sizes="(max-width:640px) 45vw,(max-width:1024px) 22vw, 18vw"
-                                      className="object-contain group-hover:scale-[1.02] transition-transform duration-300"
-                                    />
-                                  </div>
+                                    src={src}
+                                    alt={`${sub.title}: ${productLabel}`}
+                                  />
                                 );
                               })}
                             </div>
