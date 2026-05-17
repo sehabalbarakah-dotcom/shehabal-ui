@@ -95,6 +95,12 @@ const categories = [
       "Sunflower Oil",
       "Karak Tea Blend",
     ],
+    beverageGallery: [
+      "/beverages/beverage-1.jpeg",
+      "/beverages/beverage-2.jpeg",
+      "/beverages/beverage-3.jpeg",
+      "/beverages/beverage-4.jpeg",
+    ],
     image: "/oil.jpeg",
     href: "/services#oils",
     accent: "#C9A227",
@@ -124,6 +130,8 @@ export default function ProductCategories() {
         const isImageLeft = idx % 2 === 0;
         const Icon = cat.icon;
         const num = String(idx + 1).padStart(2, "0");
+        const beverageGallery =
+          "beverageGallery" in cat ? cat.beverageGallery : undefined;
 
         return (
           <motion.div
@@ -264,6 +272,40 @@ export default function ProductCategories() {
                   </motion.div>
                 ))}
               </motion.div>
+
+              {beverageGallery && beverageGallery.length > 0 ? (
+                <motion.div
+                  variants={listVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-60px" }}
+                  className="mt-8 w-full max-w-2xl"
+                >
+                  <span
+                    className="text-[10px] font-bold tracking-[0.18em] uppercase block mb-3"
+                    style={{ color: cat.accent }}
+                  >
+                    Beverage range
+                  </span>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                    {beverageGallery.map((src, gi) => (
+                      <motion.div
+                        key={src}
+                        variants={itemVariants}
+                        className="relative aspect-square rounded-xl overflow-hidden bg-white ring-1 ring-gray-200"
+                      >
+                        <Image
+                          src={src}
+                          fill
+                          alt={`Beverage product ${gi + 1}`}
+                          sizes="(max-width:640px) 40vw,(max-width:1024px) 12vw, 180px"
+                          className="object-contain"
+                        />
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              ) : null}
             </motion.div>
           </motion.div>
         );

@@ -95,7 +95,18 @@ const categories = [
       },
       {
         title: "Masala Blends",
-        products: ["Fish Masala", "Garam Masala"],
+        products: ["Fish Masala", "Garam Masala","Chicken Masala",
+          "Meat Masala",
+          "Red Chilli Powder",
+          "Kashmiri Chilli Powder",
+          "Turmeric Powder",
+          "Coriander Powder",
+          "Black Pepper Powder",
+          "Cumin Powder",
+          "Shawarma Masala",
+          "Arabic Masala",
+          "Garlic Powder",
+          "Tandoor Masala"],
       },
     ],
     accentColor: "#0047AB",
@@ -116,7 +127,13 @@ const categories = [
       },
       {
         title: "Beverages",
-        products: ["Karak Tea Blend"],
+        products: ["Kala Khatta", "Kacha Aam", "Rose", "Water Melon"],
+        productImages: [
+          "beverage-1.jpeg",
+          "beverage-2.jpeg",
+          "beverage-3.jpeg",
+          "beverage-4.jpeg",
+        ],
       },
     ],
     accentColor: "#C9A227",
@@ -284,48 +301,94 @@ export default function ProductsPage() {
               {/* ── Subcategory product cards ── */}
               <StaggerChildren
                 className={`grid gap-5 ${
-                  cat.subcategories.length === 2
-                    ? "grid-cols-1 sm:grid-cols-2"
-                    : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+                  cat.id === "oils"
+                    ? "grid-cols-1 lg:grid-cols-3"
+                    : cat.subcategories.length === 2
+                      ? "grid-cols-1 sm:grid-cols-2"
+                      : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
                 }`}
               >
-                {cat.subcategories.map((sub) => (
-                  <StaggerItem key={sub.title}>
-                    <div className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 p-7 h-full flex flex-col group">
-                      {/* accent bar */}
-                      <div
-                        className="w-8 h-0.5 mb-6 group-hover:w-14 transition-all duration-300"
-                        style={{ backgroundColor: cat.accentColor }}
-                      />
-                      {/* subcategory label */}
-                      <h4 className="text-[11px] font-bold tracking-[0.15em] uppercase text-text-muted mb-5">
-                        {sub.title}
-                      </h4>
-                      {/* product list */}
-                      <ul className="space-y-2.5 flex-1">
-                        {sub.products.map((product) => (
-                          <li key={product} className="flex items-center gap-3 group/item">
-                            <span
-                              className="w-1.5 h-1.5 rounded-full flex-shrink-0 opacity-40 group-hover/item:opacity-100 transition-opacity"
-                              style={{ backgroundColor: cat.accentColor }}
-                            />
-                            <span className="text-sm text-text-secondary leading-tight group-hover/item:text-foreground transition-colors duration-200">
-                              {product}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                      {/* card footer */}
-                      <div className="mt-6 pt-4 border-t border-gray-50 flex items-center justify-between">
-                        <span className="text-xs text-text-muted">
-                          {sub.products.length}{" "}
-                          {sub.products.length === 1 ? "product" : "products"}
-                        </span>
-                        <ShieldCheck size={14} className="text-primary/30" />
+                {cat.subcategories.map((sub, subIdx) => {
+                  const images =
+                    "productImages" in sub && Array.isArray(sub.productImages)
+                      ? sub.productImages
+                      : undefined;
+                  const spanClass =
+                    cat.id === "oils"
+                      ? subIdx === 0
+                        ? "lg:col-span-1"
+                        : "lg:col-span-2"
+                      : "";
+
+                  return (
+                    <StaggerItem key={sub.title} className={spanClass}>
+                      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 p-7 h-full flex flex-col group">
+                        {/* accent bar */}
+                        <div
+                          className="w-8 h-0.5 mb-6 group-hover:w-14 transition-all duration-300"
+                          style={{ backgroundColor: cat.accentColor }}
+                        />
+                        {/* subcategory label */}
+                        <h4 className="text-[11px] font-bold tracking-[0.15em] uppercase text-text-muted mb-5">
+                          {sub.title}
+                        </h4>
+                        {/* product list */}
+                        <ul className="space-y-2.5 flex-1">
+                          {sub.products.map((product) => (
+                            <li key={product} className="flex items-center gap-3 group/item">
+                              <span
+                                className="w-1.5 h-1.5 rounded-full flex-shrink-0 opacity-40 group-hover/item:opacity-100 transition-opacity"
+                                style={{ backgroundColor: cat.accentColor }}
+                              />
+                              <span className="text-sm text-text-secondary leading-tight group-hover/item:text-foreground transition-colors duration-200">
+                                {product}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                        {images && images.length > 0 ? (
+                          <div className="mt-6 space-y-3">
+                            <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-text-muted">
+                              Beverage range
+                            </p>
+                            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 gap-2.5">
+                              {images.map((file, imgIdx) => {
+                                const productLabel =
+                                  sub.products[imgIdx] ?? `Image ${imgIdx + 1}`;
+                                const src =
+                                  file.startsWith("/")
+                                    ? file
+                                    : `/beverages/${file}`;
+                                return (
+                                  <div
+                                    key={file}
+                                    className="relative aspect-square rounded-xl overflow-hidden bg-white ring-1 ring-gray-200"
+                                  >
+                                    <Image
+                                      src={src}
+                                      alt={`${sub.title}: ${productLabel}`}
+                                      fill
+                                      sizes="(max-width:640px) 45vw,(max-width:1024px) 22vw, 18vw"
+                                      className="object-contain group-hover:scale-[1.02] transition-transform duration-300"
+                                    />
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        ) : null}
+                        {/* card footer */}
+                        <div className="mt-6 pt-4 border-t border-gray-50 flex items-center justify-between">
+                          <span className="text-xs text-text-muted">
+                            {sub.products.length}{" "}
+                            {sub.products.length === 1 ? "product" : "products"}
+                          </span>
+                          <ShieldCheck size={14} className="text-primary/30" />
+                        </div>
                       </div>
-                    </div>
-                  </StaggerItem>
-                ))}
+                    </StaggerItem>
+                  );
+                })}
               </StaggerChildren>
 
               {/* Enquire row */}
